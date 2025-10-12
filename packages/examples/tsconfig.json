@@ -1,0 +1,9 @@
+{
+    "extends": "@total-typescript/tsconfig/tsc/dom/app",
+    "compilerOptions": {
+        "jsx": "react-jsx",
+        "jsxImportSource": "effectlayer",
+        "types": ["effectlayer"]
+    },
+    "include": ["src"]
+}

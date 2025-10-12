@@ -1,0 +1,17 @@
+{
+    "name": "effectlayer-examples",
+    "version": "0.0.0",
+    "private": true,
+    "type": "module",
+    "scripts": {
+        "dev": "vite"
+    },
+    "devDependencies": {
+        "typescript": "~5.8.3",
+        "vite": "^7.1.7"
+    },
+    "dependencies": {
+        "@total-typescript/tsconfig": "^1.0.4",
+        "effectlayer": "workspace:*"
+    }
+}
