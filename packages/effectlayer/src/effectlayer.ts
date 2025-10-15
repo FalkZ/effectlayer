@@ -1,11 +1,13 @@
-import { type VNode, h, toVNode } from "snabbdom";
+import { type VNode, toVNode } from "snabbdom";
 import type { Constructor, Simplify } from "type-fest";
-import { html, patch } from "./dom";
+import { patch } from "./patch";
 
 import { computed, effect } from "./patched/signals-core";
 import { createMapProxy, type ProxyDefinition } from "./proxy-utils";
 import { StateManagement } from "./state-management";
+import { devAssertType } from "dev-assert";
 
+// biome-ignore lint: any is what we want here
 type AnyFunction = (...args: any[]) => any;
 
 type EffectKey<Key> = Key extends `$${string}` ? Key : never;
@@ -45,10 +47,8 @@ export const effectlayer = <T extends object>(
 
     const proxyMap = new Map<string | symbol, ProxyDefinition>();
 
-    let readProxy = createMapProxy(instance, proxyMap);
-    let modifyProxy = createMapProxy(instance, proxyMap, true);
-
-    if (ASSERT) console.log({ descriptors });
+    const readProxy = createMapProxy(instance, proxyMap);
+    const modifyProxy = createMapProxy(instance, proxyMap, true);
 
     descriptors.forEach(([key, descriptor]) => {
         if (key.startsWith("$")) {
@@ -62,24 +62,23 @@ export const effectlayer = <T extends object>(
                         return;
                     }
 
+                    devAssertType(
+                        fn,
+                        (fn): fn is AnyFunction => typeof fn === "function",
+                    );
+
                     // TODO: figure out what to do with args
                     // TODO: return observables
                     return () => {
                         const rootTag = `${key.replace(/[^A-z0-9]/g, "")}-root`;
-
                         const root = document.createElement(rootTag);
-
                         root.style.display = "contents";
-
-                        let last: VNode = toVNode(root);
-
                         document.body.appendChild(root);
 
+                        let last: VNode = toVNode(root);
                         effect(() => {
-                            const next = fn!.call(readProxy);
-
+                            const next = fn.call(readProxy);
                             patch(last, next);
-
                             last = next;
                         });
 
@@ -90,7 +89,7 @@ export const effectlayer = <T extends object>(
         } else if (typeof descriptor.value === "function") {
             proxyMap.set(key, {
                 get() {
-                    return (...args: any[]) => {
+                    return (...args: unknown[]) => {
                         try {
                             stateManagement.createDraftLayer();
                             const returnValue = (
@@ -108,9 +107,7 @@ export const effectlayer = <T extends object>(
         } else if (typeof descriptor.get === "function") {
             const computedValue = computed(
                 () => descriptor.get!.call(readProxy),
-                {
-                    name: key,
-                },
+                { name: key },
             );
 
             proxyMap.set(key, {
@@ -135,9 +132,5 @@ export const effectlayer = <T extends object>(
         }
     });
 
-    if (ASSERT) console.log({ proxyMap });
-
     return readProxy as Effectlayer<T>;
 };
-
-export { html };

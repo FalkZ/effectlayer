@@ -106,6 +106,8 @@ export const EVENT_NAMES = [
     "onwebkitanimationend",
     "onwebkitanimationiteration",
     "onwebkitanimationstart",
+    "onbeforematch",
+    "onpointerrawupdate",
 ] as const;
 
 type AllNames = `on${keyof HTMLElementEventMap}`;

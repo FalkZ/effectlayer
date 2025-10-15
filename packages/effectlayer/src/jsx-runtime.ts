@@ -7,7 +7,7 @@ import {
     type VNodeData,
 } from "snabbdom";
 import { getPropsSet } from "./props-set";
-import { devAssert } from "dev-assert";
+import { devAssertType } from "dev-assert";
 
 type SnabbdomProps = {
     [prop: string]: any;
@@ -28,14 +28,23 @@ type GetProps<T extends Tag> = T extends FunctionComponent<infer Props>
       ? ComponentProps<T>
       : never;
 
-const isElement = (tag: Tag): tag is keyof JSX.IntrinsicElements =>
-    typeof tag === "string";
-
-type AnyElementProps = ComponentProps<keyof JSX.IntrinsicElements>;
-
 const listenerRegex = /^on[A-Z]/;
 
-const isListenerKey = (propKey: string): boolean => listenerRegex.test(propKey);
+type Data = Required<Pick<VNodeData, "on" | "props" | "attrs">>;
+
+const addListener = (data: Data, listenerName: string, callback: any) => {
+    const currentListener = data.on[listenerName];
+    if (currentListener) {
+        devAssertType(
+            currentListener,
+            (listener): listener is any[] => Array.isArray(listener),
+            "attached listeners were not arrays",
+        );
+        currentListener.push(callback);
+    } else {
+        data.on[listenerName] = [callback];
+    }
+};
 
 export const jsx = <T extends Tag>(
     tag: T,
@@ -44,25 +53,44 @@ export const jsx = <T extends Tag>(
     },
 ): VNode => {
     if (typeof tag === "string") {
-        if (!IS<AnyElementProps>(props)) throw Error("Invalid element props");
-
         if (!props) return jsxOriginal(tag, {});
 
         const propKeys = Object.keys(props);
 
-        const data: VNodeData = { on: {}, props: {}, attrs: {} };
+        const data: Data = {
+            on: {},
+            props: {},
+            attrs: {},
+        };
 
         const propsSet = getPropsSet(tag);
 
         for (const propKey of propKeys) {
-            if (propKey === "children") continue;
-            else if (isListenerKey(propKey)) {
-                data.on[propKey.slice(2).toLowerCase()] = props[propKey];
+            if (propKey === "children") {
+                // biome-ignore lint: continue for performance?
+                continue;
+            } else if (propKey.startsWith("onValue")) {
+                // TODO: value update
+                const listenerName = propKey.slice(7).toLowerCase();
+                addListener(
+                    data,
+                    listenerName,
+                    ({
+                        currentTarget,
+                    }: {
+                        currentTarget: HTMLInputElement;
+                    }) => {
+                        (props as any)[propKey];
+                    },
+                );
+            } else if (listenerRegex.test(propKey)) {
+                const listenerName = propKey.slice(2).toLowerCase();
+                addListener(data, listenerName, (props as any)[propKey]);
             } else if (propsSet.has(propKey)) {
                 console.log(propKey);
-                data.props[propKey] = props[propKey];
+                data.props[propKey] = (props as any)[propKey];
             } else {
-                data.attrs[propKey] = props[propKey];
+                data.attrs[propKey] = (props as any)[propKey];
             }
         }
 
@@ -79,10 +107,25 @@ export { Fragment, jsx as jsxDEV };
 
 export namespace JSX {
     export type IntrinsicElements = ReactJSX.IntrinsicElements & {
-        main: { test: "hello" };
         input:
-            | { type: "number"; test: "hello" }
-            | { type: "text"; test: "text" }
+            | {
+                  type: "number";
+                  onValueChange?:
+                      | ((value: number | null) => void)
+                      | ((value: number | null) => number | null);
+                  onValueInput?:
+                      | ((value: number | null) => void)
+                      | ((value: number | null) => number | null);
+              }
+            | {
+                  type: "text";
+                  onValueChange?:
+                      | ((value: string) => void)
+                      | ((value: string) => string);
+                  onValueInput?:
+                      | ((value: string) => void)
+                      | ((value: string) => string);
+              }
             | { type: string };
     };
 }

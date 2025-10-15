@@ -1,14 +1,7 @@
-import { init, h, type VNode, type VNodeData } from "snabbdom";
+import { h, type VNode, type VNodeData } from "snabbdom";
 import hyperx from "hyperx";
-import {
-    attributesModule,
-    classModule,
-    propsModule,
-    styleModule,
-    eventListenersModule,
-} from "snabbdom";
 
-import booleanProps from "./patched/boolean-props.json";
+import booleanProps from "../patched/boolean-props.json";
 import { isEventName } from "./all-listnerers";
 
 const booleanSet = new Set(booleanProps);
@@ -27,7 +20,7 @@ function createElement(
 ) {
     if (selector === "!--") return h("!", props.comment);
 
-    if (children && children.length) {
+    if (children?.length) {
         if (children.length === 1) children = children[0];
         else children = children.flat();
     }
@@ -72,19 +65,3 @@ export const html = hyperx(createElement, {
     comments: true,
     attrToProp: false,
 }) as TaggedTemplate;
-
-export const patch = init(
-    [
-        attributesModule,
-        eventListenersModule,
-        classModule,
-        propsModule,
-        styleModule,
-    ],
-    undefined,
-    {
-        experimental: {
-            fragments: true,
-        },
-    },
-);
