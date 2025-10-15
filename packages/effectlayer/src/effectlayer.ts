@@ -1,4 +1,4 @@
-import { type VNode, h } from "snabbdom";
+import { type VNode, h, toVNode } from "snabbdom";
 import type { Constructor, Simplify } from "type-fest";
 import { html, patch } from "./dom";
 
@@ -71,28 +71,16 @@ export const effectlayer = <T extends object>(
 
                         root.style.display = "contents";
 
-                        let last: HTMLElement | VNode = root;
+                        let last: VNode = toVNode(root);
 
                         document.body.appendChild(root);
 
                         effect(() => {
                             const next = fn!.call(readProxy);
 
-                            const n = h(
-                                rootTag,
-                                {
-                                    style: {
-                                        display: "contents",
-                                    },
-                                },
-                                next,
-                            );
+                            patch(last, next);
 
-                            console.log({ last, n });
-
-                            patch(last, n);
-
-                            last = n;
+                            last = next;
                         });
 
                         return root;

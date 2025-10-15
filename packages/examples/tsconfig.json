@@ -3,7 +3,7 @@
     "compilerOptions": {
         "jsx": "react-jsx",
         "jsxImportSource": "effectlayer",
-        "types": ["effectlayer"]
+        "types": ["vite/client"]
     },
     "include": ["src"]
 }

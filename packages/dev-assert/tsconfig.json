@@ -1,0 +1,14 @@
+{
+  "extends": "@total-typescript/tsconfig/tsc/dom/library",
+  "compilerOptions": {
+    "types": [
+      "vite/client"
+    ],
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "declarationMap": true
+  },
+  "include": [
+    "src"
+  ]
+}

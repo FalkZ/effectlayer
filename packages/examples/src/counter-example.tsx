@@ -32,10 +32,11 @@ class CounterApp {
 
     $ui() {
         return (
-            <main>
+            <main test="hello">
                 <button type="button" onClick={() => this.countDown()}>
                     -
                 </button>
+                <input type="checkbox"></input>
                 <input
                     type="number"
                     value={this.counter}

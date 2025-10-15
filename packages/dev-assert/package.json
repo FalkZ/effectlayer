@@ -1,0 +1,38 @@
+{
+    "name": "dev-assert",
+    "version": "0.0.3",
+    "type": "module",
+    "scripts": {
+        "build": "vite build",
+        "example": "vite --config=vite.example.config.ts",
+        "build-example": "vite build --config=vite.example.config.ts",
+        "preview-example": "vite preview --config=vite.example.config.ts",
+        "prepublish": "pnpm build"
+    },
+    "exports": {
+        ".": {
+            "import": "./dist/dev-assert.js",
+            "types": "./dist/dev-assert.d.js"
+        },
+        "./vite": {
+            "import": "./dist/vite-plugin.js",
+            "types": "./dist/vite-plugin.d.js"
+        }
+    },
+    "devDependencies": {
+        "@total-typescript/tsconfig": "^1.0.4",
+        "typescript": "~5.9.3",
+        "vite-plugin-dts": "^4.5.4",
+        "vite-plugin-externalize-deps": "^0.10.0"
+    },
+    "peerDependencies": {
+        "vite": "^7.0.0"
+    },
+    "dependencies": {
+        "@rollup/plugin-strip": "3.0.4"
+    },
+    "files": [
+        "dist",
+        "src"
+    ]
+}

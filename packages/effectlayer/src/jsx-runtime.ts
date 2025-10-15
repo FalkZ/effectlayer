@@ -7,6 +7,7 @@ import {
     type VNodeData,
 } from "snabbdom";
 import { getPropsSet } from "./props-set";
+import { devAssert } from "dev-assert";
 
 type SnabbdomProps = {
     [prop: string]: any;
@@ -77,5 +78,11 @@ export const jsx = <T extends Tag>(
 export { Fragment, jsx as jsxDEV };
 
 export namespace JSX {
-    export interface IntrinsicElements extends ReactJSX.IntrinsicElements {}
+    export type IntrinsicElements = ReactJSX.IntrinsicElements & {
+        main: { test: "hello" };
+        input:
+            | { type: "number"; test: "hello" }
+            | { type: "text"; test: "text" }
+            | { type: string };
+    };
 }
