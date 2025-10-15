@@ -1,29 +1,35 @@
-import type { ElementTag } from "./jsx-runtime";
+const map = new Map<string, Set<string>>();
 
-const map = new Map<ElementTag, Set<string>>();
+const prototypeCache = new Map<object, string[]>();
 
-function getElementProps(
-    obj: HTMLElement,
-    element = obj,
-    props: string[] = [],
-) {
-    if (!obj) return props;
+const getPrototypeProps = (prototype: object): string[] => {
+    if (prototypeCache.has(prototype)) return prototypeCache.get(prototype)!;
 
-    Object.entries(Object.getOwnPropertyDescriptors(obj)).forEach(
+    const currentProtoProps: string[] = [];
+
+    Object.entries(Object.getOwnPropertyDescriptors(prototype)).forEach(
         ([name, descriptor]) => {
-            if (descriptor.writable || descriptor.set) props.push(name);
+            if (descriptor.writable || descriptor.set)
+                currentProtoProps.push(name);
         },
     );
 
-    return getElementProps(Object.getPrototypeOf(obj), element, props);
-}
+    const parentPrototype = Object.getPrototypeOf(prototype);
+    if (parentPrototype) {
+        currentProtoProps.push(...getPrototypeProps(parentPrototype));
+    }
 
-export const getPropsSet = (tag: ElementTag): Set<string> => {
+    prototypeCache.set(prototype, currentProtoProps);
+
+    return currentProtoProps;
+};
+
+export const getPropsSet = (tag: string): Set<string> => {
     if (map.has(tag)) return map.get(tag)!;
 
-    const el = document.createElement(tag);
+    const obj = Object.getPrototypeOf(document.createElement(tag));
 
-    const props = new Set(getElementProps(el));
+    const props = new Set(getPrototypeProps(obj));
     map.set(tag, props);
 
     return props;
