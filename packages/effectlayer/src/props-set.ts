@@ -9,7 +9,14 @@ const getPrototypeProps = (prototype: object): string[] => {
 
     Object.entries(Object.getOwnPropertyDescriptors(prototype)).forEach(
         ([name, descriptor]) => {
-            if (descriptor.writable || descriptor.set)
+            if (name.startsWith("__")) return;
+
+            if (descriptor.set) currentProtoProps.push(name);
+            else if (
+                "value" in descriptor &&
+                descriptor.writable &&
+                typeof descriptor.value !== "function"
+            )
                 currentProtoProps.push(name);
         },
     );

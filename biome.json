@@ -21,7 +21,8 @@
                 "noNonNullAssertion": "off"
             },
             "suspicious": {
-                "noExplicitAny": "off"
+                "noExplicitAny": "off",
+                "noArrayIndexKey": "error"
             }
         }
     },

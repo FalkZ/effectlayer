@@ -7,7 +7,6 @@ import { createMapProxy, type ProxyDefinition } from "./proxy-utils";
 import { StateManagement } from "./state-management";
 import { devAssertType } from "dev-assert";
 
-// biome-ignore lint: any is what we want here
 type AnyFunction = (...args: any[]) => any;
 
 type EffectKey<Key> = Key extends `$${string}` ? Key : never;
@@ -77,9 +76,12 @@ export const effectlayer = <T extends object>(
 
                         let last: VNode = toVNode(root);
                         effect(() => {
+                            // TODO: figure out sth, more performant
                             const next = fn.call(readProxy);
-                            patch(last, next);
-                            last = next;
+                            if (next !== undefined) {
+                                patch(last, next);
+                                last = next;
+                            }
                         });
 
                         return root;
@@ -134,3 +136,5 @@ export const effectlayer = <T extends object>(
 
     return readProxy as Effectlayer<T>;
 };
+
+export * from "./types";

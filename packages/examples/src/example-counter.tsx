@@ -9,12 +9,15 @@ class CounterApp {
         return this.counter * 2;
     }
 
-    setCount(value: string) {
-        const parsedValue = parseInt(value);
-        if (!isNaN(parsedValue) && parsedValue >= 0) {
-            this.counter = parsedValue;
+    updateCount(value: number | null) {
+        console.log("updateCount", value);
+
+        // update if value is positive number
+        if (value !== null && value >= 0) {
+            this.counter = value;
         }
 
+        // the return value will set on the input after update
         return this.counter;
     }
 
@@ -32,19 +35,14 @@ class CounterApp {
 
     $ui() {
         return (
-            <main test="hello">
+            <main>
                 <button type="button" onClick={() => this.countDown()}>
                     -
                 </button>
-                <input type="checkbox"></input>
                 <input
                     type="number"
                     value={this.counter}
-                    onChange={({ currentTarget }) => {
-                        currentTarget.value = this.setCount(
-                            currentTarget.value,
-                        );
-                    }}
+                    onValueChange={this.updateCount}
                 />
                 <button type="button" onClick={() => this.countUp()}>
                     +
