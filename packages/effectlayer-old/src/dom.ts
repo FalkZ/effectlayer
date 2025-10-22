@@ -15,9 +15,16 @@ const booleanSet = new Set(booleanProps);
 
 const isBoolAttribute = (name: string) => booleanSet.has(name);
 
-type TaggedTemplate = (strings: TemplateStringsArray, ...values: any[]) => VNode;
+type TaggedTemplate = (
+    strings: TemplateStringsArray,
+    ...values: any[]
+) => VNode;
 
-function createElement(selector: string, props: Record<string, any>, children?: any | any[]) {
+function createElement(
+    selector: string,
+    props: Record<string, any>,
+    children?: any | any[],
+) {
     if (selector === "!--") return h("!", props.comment);
 
     if (children && children.length) {
@@ -41,7 +48,8 @@ function createElement(selector: string, props: Record<string, any>, children?: 
             const key = propKey.slice(1);
 
             // hyperx converts booleans to string that's why we need this
-            if (isBoolAttribute(key)) data.props[key] = props[propKey] !== "false";
+            if (isBoolAttribute(key))
+                data.props[key] = props[propKey] !== "false";
             else data.props[key] = props[propKey];
         } else if (
             (propKey === "class" || propKey === "style") &&
@@ -52,14 +60,18 @@ function createElement(selector: string, props: Record<string, any>, children?: 
             if (!data.attrs) data.attrs = {};
 
             // hyperx converts booleans to string that's why we need this
-            if (isBoolAttribute(propKey)) data.attrs[propKey] = props[propKey] !== "false";
+            if (isBoolAttribute(propKey))
+                data.attrs[propKey] = props[propKey] !== "false";
             else data.attrs[propKey] = props[propKey];
         }
     }
     return h(selector, data, children);
 }
 
-export const html = hyperx(createElement, { comments: true, attrToProp: false }) as TaggedTemplate;
+export const html = hyperx(createElement, {
+    comments: true,
+    attrToProp: false,
+}) as TaggedTemplate;
 
 export const patch = init([
     attributesModule,

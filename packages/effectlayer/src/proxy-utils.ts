@@ -11,14 +11,18 @@ export const createMapProxy = (
     new Proxy(target, {
         get(target, prop, receiver) {
             const definition = map.get(prop);
-            if (ASSERT) if (!definition) console.log(`Property ${String(prop)} not found in map`);
+            if (ASSERT)
+                if (!definition)
+                    console.log(`Property ${String(prop)} not found in map`);
 
             if (definition) return definition.get(modifyMode);
             return Reflect.get(target, prop, receiver);
         },
         set(_target, prop, value) {
             const definition = map.get(prop);
-            if (ASSERT) if (!definition) console.log(`Property ${String(prop)} not found in map`);
+            if (ASSERT)
+                if (!definition)
+                    console.log(`Property ${String(prop)} not found in map`);
 
             if (definition?.set) return definition.set(value, modifyMode);
             return false;

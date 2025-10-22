@@ -8,8 +8,8 @@ Instead of hooks, you can define all your application state in a single class. E
 
 ```tsx
 class MoodSwing {
-  energy = 5;
-  coffee = 0;
+    energy = 5;
+    coffee = 0;
 }
 ```
 
@@ -37,7 +37,7 @@ Methods handle all state mutations.
   }
 ```
 
-Effects are methods stating with `$`. They get called when ever their dependencies change.
+Methods stating with `$` are treated as effects. They get called when ever their dependencies change.
 
 ```tsx
 $monitor() {
@@ -45,7 +45,7 @@ $monitor() {
 }
 ```
 
-To render html, effects that return JSX can be used.
+To render html, JSX can returned in an effect.
 
 ```tsx
 $ui() {
@@ -66,13 +66,13 @@ To create a reactive instance, wrap your class with `effectlayer()`:
 const moodSwing = effectlayer(MoodSwing);
 ```
 
-Initialize effects by calling them once.
+Effects are initialized by calling them once.
 
 ```tsx
 moodSwing.$monitor();
 ```
 
-DOM effects will return a html element that can be attached to the DOM.
+Effects containing JSX will return a html element that can be attached to the DOM.
 
 ```tsx
 document.body.appendChild(moodSwing.$ui());
@@ -86,9 +86,9 @@ Effectlayer gives you a clean frontend architecture with a minimal set of concep
 - getters for **computed values**
 - methods for **mutations**
 - methods starting with `$` for **effects** such as:
-  - html / DOM changes
-  - console.logs
-  - route changes
+    - html / DOM changes
+    - console.logs
+    - route changes
 
 React, Vue, and Svelte are excellent frameworks that power countless applications. Each has its strengths depending on the use case. However, their extensive APIs and concepts can feel overwhelming when you just want to build something simple.
 

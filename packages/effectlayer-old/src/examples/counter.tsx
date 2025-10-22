@@ -40,7 +40,9 @@ class CounterApp {
                     type="number"
                     value={this.counter}
                     onChange={({ currentTarget }) => {
-                        currentTarget.value = this.setCount(currentTarget.value);
+                        currentTarget.value = this.setCount(
+                            currentTarget.value,
+                        );
                     }}
                 />
                 <button type="button" onClick={() => this.countUp()}>

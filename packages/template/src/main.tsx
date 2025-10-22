@@ -7,8 +7,8 @@ class MoodSwing {
 
     get mood() {
         if (this.energy > 8) return "🤪";
-        if (this.energy > 5) return "😀";
-        if (this.energy > 2) return "😑";
+        if (this.energy > 4) return "😀";
+        if (this.energy > 0) return "😑";
         return "😴";
     }
 

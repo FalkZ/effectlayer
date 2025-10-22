@@ -34,10 +34,21 @@ class TodoApp {
 
     $ui() {
         return html`
-        <div muted=${true}>
-           <div id="test" draggable="false" onclick=${() => this.addTodo("Test")}>${this.counter}</div>
-           <div draggable="true" onclick=${() => console.log("clicked")} @innerHTML=${`<i>Test</i>`}></div>
-       </div>`;
+            <div muted=${true}>
+                <div
+                    id="test"
+                    draggable="false"
+                    onclick=${() => this.addTodo("Test")}
+                >
+                    ${this.counter}
+                </div>
+                <div
+                    draggable="true"
+                    onclick=${() => console.log("clicked")}
+                    @innerHTML=${`<i>Test</i>`}
+                ></div>
+            </div>
+        `;
     }
 }
 

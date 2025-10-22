@@ -2,17 +2,19 @@
     "name": "effectlayer-monorepo",
     "private": true,
     "scripts": {
-        "format": "bunx biome format --write",
+        "format": "prettier . --write",
         "dev": "bun run --filter './packages/*' dev"
     },
-    "workspaces": [
-        "packages/*"
-    ],
     "devDependencies": {
-        "@biomejs/biome": "2.2.5"
+        "ijw": "workspace:*",
+        "prettier": "^3.6.2"
     },
     "overrides": {
         "vite": "7.1.10"
     },
+    "workspaces": [
+        "packages/*"
+    ],
+    "prettier": "ijw/prettier",
     "packageManager": "bun@1.2.23"
 }

@@ -11,14 +11,15 @@ type AnyFunction = (...args: any[]) => any;
 type EffectKey<Key> = Key extends `$${string}` ? Key : never;
 
 type Effects<T extends object> = {
-    [Key in EffectKey<keyof T>]: T[Key] extends () => VNode ? () => HTMLElement : T[Key];
+    [Key in EffectKey<keyof T>]: T[Key] extends () => VNode
+        ? () => HTMLElement
+        : T[Key];
 };
 
-type MethodsKeys<T extends object, Key extends keyof T> = Key extends `$${string}`
-    ? never
-    : T[Key] extends AnyFunction
-      ? Key
-      : never;
+type MethodsKeys<
+    T extends object,
+    Key extends keyof T,
+> = Key extends `$${string}` ? never : T[Key] extends AnyFunction ? Key : never;
 
 type Methods<T extends object> = {
     [Key in MethodsKeys<T, keyof T>]: T[Key];
@@ -26,10 +27,14 @@ type Methods<T extends object> = {
 
 export type Effectlayer<T extends object> = Simplify<Methods<T> & Effects<T>>;
 
-export const effectlayer = <T extends object>(Class: Constructor<T>): Effectlayer<T> => {
+export const effectlayer = <T extends object>(
+    Class: Constructor<T>,
+): Effectlayer<T> => {
     const instance = new Class();
     const instanceDescriptors = Object.getOwnPropertyDescriptors(instance);
-    const prototypeDescriptors = Object.getOwnPropertyDescriptors(Class.prototype);
+    const prototypeDescriptors = Object.getOwnPropertyDescriptors(
+        Class.prototype,
+    );
 
     const descriptors = [
         ...Object.entries(instanceDescriptors),
@@ -97,10 +102,9 @@ export const effectlayer = <T extends object>(Class: Constructor<T>): Effectlaye
                     return (...args: any[]) => {
                         try {
                             stateManagement.createDraftLayer();
-                            const returnValue = (descriptor.value as AnyFunction).call(
-                                modifyProxy,
-                                ...args,
-                            );
+                            const returnValue = (
+                                descriptor.value as AnyFunction
+                            ).call(modifyProxy, ...args);
                             stateManagement.applyDraftLayer();
                             return returnValue;
                         } catch (e) {
@@ -111,9 +115,12 @@ export const effectlayer = <T extends object>(Class: Constructor<T>): Effectlaye
                 },
             });
         } else if (typeof descriptor.get === "function") {
-            const computedValue = computed(() => descriptor.get!.call(readProxy), {
-                name: key,
-            });
+            const computedValue = computed(
+                () => descriptor.get!.call(readProxy),
+                {
+                    name: key,
+                },
+            );
 
             proxyMap.set(key, {
                 get() {

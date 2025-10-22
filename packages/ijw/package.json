@@ -1,0 +1,47 @@
+{
+    "name": "ijw",
+    "version": "0.0.4",
+    "description": "It just works! – opinionated linting & formatting",
+    "license": "MIT",
+    "author": {
+        "name": "FalkZ",
+        "url": "https://github.com/FalkZ"
+    },
+    "type": "module",
+    "devDependencies": {
+        "prettier": "^3.6.2"
+    },
+    "exports": {
+        "./eslint": {
+            "default": "./eslint.js",
+            "types": "./eslint.d.ts"
+        },
+        "./prettier": {
+            "default": "./prettier.cjs",
+            "types": "./prettier.d.ts"
+        },
+        "./typescript": {
+            "default": "./typescript.json"
+        }
+    },
+    "publishConfig": {
+        "access": "public"
+    },
+    "peerDependencies": {
+        "eslint": "^9.38.0",
+        "prettier": ">=3.0.0",
+        "typescript": "^5.9.3"
+    },
+    "dependencies": {
+        "@eslint/js": "^9.38.0",
+        "@total-typescript/tsconfig": "^1.0.4",
+        "@typescript-eslint/eslint-plugin": "^8.46.2",
+        "@typescript-eslint/parser": "^8.46.2",
+        "eslint-config-airbnb-extended": "^2.3.2",
+        "typescript-eslint": "^8.46.2"
+    },
+    "scripts": {
+        "format": "prettier --write ."
+    },
+    "packageManager": "bun@1.2.23"
+}

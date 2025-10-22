@@ -17,4 +17,7 @@ Object.entries(htmlProperties.property).forEach(([key, value]) => {
     }
 });
 
-writeFileSync("./src/patched/boolean-props.json", JSON.stringify(booleanProps, null, 2));
+writeFileSync(
+    "./src/patched/boolean-props.json",
+    JSON.stringify(booleanProps, null, 2),
+);

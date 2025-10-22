@@ -23,11 +23,12 @@ export type ElementTag = keyof JSX.IntrinsicElements;
 
 type Tag = keyof JSX.IntrinsicElements | FunctionComponent;
 
-type GetProps<T extends Tag> = T extends FunctionComponent<infer Props>
-    ? Props & { key?: string | number }
-    : T extends keyof JSX.IntrinsicElements
-      ? ComponentProps<T>
-      : never;
+type GetProps<T extends Tag> =
+    T extends FunctionComponent<infer Props>
+        ? Props & { key?: string | number }
+        : T extends keyof JSX.IntrinsicElements
+          ? ComponentProps<T>
+          : never;
 
 const listenerRegex = /^on[A-Z]/;
 

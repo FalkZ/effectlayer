@@ -12,13 +12,15 @@ import {
 
 enableMapSet();
 
-const createDraftSafe = (value: any) => (isDraftable(value) ? createDraft(value) : value);
+const createDraftSafe = (value: any) =>
+    isDraftable(value) ? createDraft(value) : value;
 
 // TODO: stuctured clone is not really needed, instead make sure only valid data is passed
 const finishDraftSafe = (value: any) =>
     isDraft(value) ? finishDraft(value) : structuredClone(value);
 
-const currentSafe = (value: any) => (isDraft(value) ? current(value) : structuredClone(value));
+const currentSafe = (value: any) =>
+    isDraft(value) ? current(value) : structuredClone(value);
 
 export class StateManagement {
     private stateMap = new Map<string, Signal<any>>();
@@ -46,7 +48,9 @@ export class StateManagement {
     }
 
     getDraft(key: string) {
-        const latestDraftIndex = this.draftLayers.findIndex((layer) => layer.has(key));
+        const latestDraftIndex = this.draftLayers.findIndex((layer) =>
+            layer.has(key),
+        );
 
         if (latestDraftIndex === -1) {
             const state = this.stateMap.get(key)!;
