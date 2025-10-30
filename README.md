@@ -1,5 +1,7 @@
 # Effectlayer
 
+> This framework is still in early beta, bugs and changes are expected.
+
 Effectlayer is a reactive frontend framework that uses the familiar JSX Syntax from React, but takes a fundamentally different approach to state management.
 
 # Tour
@@ -17,31 +19,31 @@ Computed values use standard JavaScript getters. They update automatically when 
 
 ```tsx
 get mood() {
-    if (this.energy > 8) return '🤪';
-    if (this.energy > 5) return '😊';
-    if (this.energy > 2) return '😐';
-    return '😴';
+    if (this.energy > 8) return "🤪";
+    if (this.energy > 4) return "😀";
+    if (this.energy > 0) return "😑";
+    return "😴";
 }
 ```
 
 Methods handle all state mutations.
 
 ```tsx
-  drinkCoffee() {
+drinkCoffee() {
     this.coffee++;
     this.energy = Math.min(10, this.energy + 3);
-  }
+}
 
-  work() {
+work() {
     this.energy = Math.max(0, this.energy - 2);
-  }
+}
 ```
 
 Methods stating with `$` are treated as effects. They get called when ever their dependencies change.
 
 ```tsx
 $monitor() {
-    if(this.coffee > 10) console.warn("Oh oh, you may wanna slow down.");
+    if (this.coffee > 10) console.warn("Oh oh, you may wanna slow down.");
 }
 ```
 
@@ -52,9 +54,8 @@ $ui() {
     return (
         <main>
             <h1>{this.mood}</h1>
-            <p>Energy: {this.energy}/10</p>
-            <button onclick={() => this.drinkCoffee()}>☕ Coffee</button>
-            <button onclick={() => this.work()}>💻 Work</button>
+            <button onClick={() => this.drinkCoffee()}>☕ Coffee</button>
+            <button onClick={() => this.work()}>💻 Work</button>
         </main>
     );
 }

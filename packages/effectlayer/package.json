@@ -1,11 +1,11 @@
 {
     "name": "effectlayer",
-    "private": true,
-    "version": "0.0.0",
+    "version": "0.0.2",
     "type": "module",
     "scripts": {
         "dev": "vite build --watch",
-        "build": "vite build"
+        "build": "vite build",
+        "prepublishOnly": "bun run build && cp ../../README.md ./README.md"
     },
     "exports": {
         ".": {
