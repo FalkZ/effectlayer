@@ -4,5 +4,5 @@
         "types": ["vite/client"],
         "jsxImportSource": "effectlayer"
     },
-    "include": ["src"]
+    "include": ["src", "*.config.js"]
 }

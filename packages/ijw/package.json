@@ -1,7 +1,16 @@
 {
     "name": "ijw",
-    "version": "0.0.4",
+    "version": "0.0.5",
     "description": "It just works! – opinionated linting & formatting",
+    "keywords": [
+        "eslint",
+        "prettier",
+        "lint",
+        "format",
+        "javascript",
+        "typescript",
+        "react"
+    ],
     "license": "MIT",
     "author": {
         "name": "FalkZ",

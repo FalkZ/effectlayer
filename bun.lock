@@ -8,25 +8,6 @@
         "prettier": "^3.6.2",
       },
     },
-    "packages/combined": {
-      "name": "ijw",
-      "dependencies": {
-        "@eslint/js": "^9.38.0",
-        "@total-typescript/tsconfig": "^1.0.4",
-        "@typescript-eslint/eslint-plugin": "^8.46.2",
-        "@typescript-eslint/parser": "^8.46.2",
-        "eslint-config-airbnb-extended": "^2.3.2",
-        "typescript-eslint": "^8.46.2",
-      },
-      "devDependencies": {
-        "prettier": "^3.6.2",
-      },
-      "peerDependencies": {
-        "eslint": "^9.38.0",
-        "prettier": ">=3.0.0",
-        "typescript": "^5.9.3",
-      },
-    },
     "packages/dev-assert": {
       "name": "dev-assert",
       "version": "0.0.3",
@@ -107,6 +88,26 @@
         "vite": "^7.1.7",
       },
     },
+    "packages/ijw": {
+      "name": "ijw",
+      "version": "0.0.5",
+      "dependencies": {
+        "@eslint/js": "^9.38.0",
+        "@total-typescript/tsconfig": "^1.0.4",
+        "@typescript-eslint/eslint-plugin": "^8.46.2",
+        "@typescript-eslint/parser": "^8.46.2",
+        "eslint-config-airbnb-extended": "^2.3.2",
+        "typescript-eslint": "^8.46.2",
+      },
+      "devDependencies": {
+        "prettier": "^3.6.2",
+      },
+      "peerDependencies": {
+        "eslint": "^9.38.0",
+        "prettier": ">=3.0.0",
+        "typescript": "^5.9.3",
+      },
+    },
     "packages/template": {
       "name": "template",
       "version": "0.0.0",
@@ -115,7 +116,7 @@
       },
       "devDependencies": {
         "eslint": "^9.38.0",
-        "ijw": "workspace:*",
+        "ijw": "0.0.5",
         "typescript": "~5.9.3",
         "vite": "^7.1.7",
       },
@@ -729,7 +730,7 @@
 
     "ignore": ["ignore@7.0.5", "", {}, "sha512-Hs59xBNfUIunMFgWAbGX5cq6893IbWg4KnrjbYwX3tx0ztorVgTDA6B2sxf8ejHJ4wz8BqGUMYlnzNBer5NvGg=="],
 
-    "ijw": ["ijw@workspace:packages/combined"],
+    "ijw": ["ijw@workspace:packages/ijw"],
 
     "immer": ["immer@10.1.3", "", {}, "sha512-tmjF/k8QDKydUlm3mZU+tjM6zeq9/fFpPqH9SzWmBnVVKsPBg/V66qsMwb3/Bo90cgUN+ghdVBess+hPsxUyRw=="],
 

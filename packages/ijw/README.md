@@ -26,8 +26,12 @@ const config = createConfig();
 export default config;
 ```
 
+> Delete the `.eslintignore` file, if it exists.
+
 <details>
-<summary>With accessibility rules enabled:</summary>
+<summary><strong>
+With accessibility rules enabled
+</strong></summary>
 
 ```js
 import createConfig from "ijw/eslint";
@@ -36,8 +40,6 @@ const config = createConfig({
 });
 export default config;
 ```
-
-> Delete the `.eslintignore` file, if existing in your project.
 
 </details>
 
@@ -48,7 +50,7 @@ Create the following `tsconfig.json` file:
 ```json
 {
     "extends": "ijw/typescript",
-    "include": ["src"]
+    "include": ["src", "*.config.js"]
 }
 ```
 
@@ -58,7 +60,6 @@ Add the following line to your `package.json` file:
 
 ```json
 {
-    // ...
     "prettier": "ijw/prettier"
 }
 ```

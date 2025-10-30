@@ -1,4 +1,4 @@
-import createConfig from "../ijw/eslint";
+import createConfig from "ijw/eslint";
 
 const config = createConfig();
 
