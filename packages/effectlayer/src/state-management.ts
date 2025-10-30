@@ -1,5 +1,5 @@
+import { devAssert } from "dev-assert";
 import { batch, Signal, signal } from "./patched/signals-core";
-import equal from "fast-deep-equal/es6";
 import {
     createDraft,
     current,
@@ -41,7 +41,7 @@ export class StateManagement {
     private createCurrentDraft(key: string, value: any): Draft<any> {
         const draft = createDraftSafe(value);
         const currentLayer = this.draftLayers[0]!;
-        if (ASSERT) if (!currentLayer) console.error("No draft layer found");
+        devAssert(Boolean(currentLayer), "No draft layer found");
         currentLayer.set(key, draft);
 
         return draft;
@@ -54,7 +54,7 @@ export class StateManagement {
 
         if (latestDraftIndex === -1) {
             const state = this.stateMap.get(key)!;
-            if (ASSERT) if (!state) console.error("State not found");
+            devAssert(Boolean(state), "State not found");
             return this.createCurrentDraft(key, state.peek());
         } else if (latestDraftIndex === 0) {
             const draft = this.draftLayers[0].get(key)!;
@@ -77,7 +77,7 @@ export class StateManagement {
         const currentLayer = this.draftLayers.shift()!;
         const upperLayer = this.draftLayers[0];
 
-        if (ASSERT) if (!currentLayer) console.error("No draft layer found");
+        devAssert(Boolean(currentLayer), "No draft layer found");
 
         batch(() => {
             [...currentLayer.entries()].forEach(([key, draft]) => {

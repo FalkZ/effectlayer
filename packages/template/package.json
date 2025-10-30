@@ -16,7 +16,7 @@
         "vite": "^7.1.7"
     },
     "dependencies": {
-        "effectlayer": "workspace:*"
+        "effectlayer": "0.0.2"
     },
     "prettier": "ijw/prettier"
 }

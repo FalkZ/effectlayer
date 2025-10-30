@@ -28,7 +28,11 @@ class MoodSwing {
     $ui() {
         return (
             <main>
-                <h1>{this.mood}</h1>
+                <h1>
+                    <img src="/effectlayer-dark.svg"></img>
+                    Effectlayer
+                </h1>
+                <h2>{this.mood}</h2>
                 <p>{this.energy} / 10</p>
                 <button onClick={() => this.drinkCoffee()}>☕ Coffee</button>
                 <button onClick={() => this.work()}>💻 Work</button>

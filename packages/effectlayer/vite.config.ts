@@ -19,7 +19,7 @@ export default defineConfig({
         }),
         dts(),
         devAssertPlugin(),
-        analyzer({ openAnalyzer: false }),
+        process.env.ANALYZE ? analyzer() : undefined,
     ],
     define: {
         ASSERT: String(process.env.NODE_ENV !== "production"),

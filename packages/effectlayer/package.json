@@ -4,8 +4,8 @@
     "type": "module",
     "scripts": {
         "dev": "vite build --watch",
-        "build": "vite build",
-        "prepublishOnly": "bun run build && cp ../../README.md ./README.md"
+        "build": "ANALYZE=true vite build",
+        "prepublishOnly": "vite build && cp ../../README.md ./README.md"
     },
     "exports": {
         ".": {

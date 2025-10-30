@@ -10,6 +10,8 @@
         "prettier": "^3.6.2"
     },
     "overrides": {
+        "effectlayer": "workspace:*",
+        "ijw": "workspace:*",
         "vite": "7.1.10"
     },
     "workspaces": [

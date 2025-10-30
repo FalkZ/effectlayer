@@ -26,7 +26,7 @@
     },
     "packages/effectlayer": {
       "name": "effectlayer",
-      "version": "0.0.0",
+      "version": "0.0.2",
       "dependencies": {
         "@preact/signals-core": "^1.12.1",
         "@types/react": "^19.2.2",
@@ -123,6 +123,8 @@
     },
   },
   "overrides": {
+    "effectlayer": "workspace:*",
+    "ijw": "workspace:*",
     "vite": "7.1.10",
   },
   "packages": {
