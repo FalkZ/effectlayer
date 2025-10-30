@@ -10,16 +10,17 @@
 :root {
     color-scheme: dark;
     color: rgba(255, 255, 255, 0.87);
-    background: #0a0f18;
     background: linear-gradient(
-            135deg,
-            #0a0f1c 0%,
-            #1a1f3a 25%,
-            #2d1b69 50%,
-            #1e3a8a 75%,
-            #0f172a 100%
-        )
-        c;
+        135deg,
+        #020612 0%,
+        #051225 25%,
+        #0a1540 50%,
+        #081e55 75%,
+        #030920 100%
+    );
+
+    background-size: cover;
+    background-repeat: no-repeat;
 
     font-synthesis: none;
     text-rendering: optimizeLegibility;
@@ -33,6 +34,7 @@ body {
     place-items: center;
     min-width: 320px;
     min-height: 100vh;
+    width: 100%;
 }
 
 h1 {
@@ -42,19 +44,8 @@ h1 {
     font-weight: 600;
     display: flex;
     gap: 2rem;
-    /*  background: linear-gradient(
-        45deg,
-        #1e3a8a,
-        #3b82f6,
-        #60a5fa,
-        #3b82f6,
-        #1e3a8a
-    );
-    background-size: 200% 200%;
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-*/
+    padding-right: 2rem;
+
     text-shadow:
         0 0 8px rgba(59, 130, 246, 0.5),
         0 0 16px rgba(59, 130, 246, 0.4),
@@ -89,11 +80,12 @@ main {
 p {
     font-weight: 300;
     font-size: 1.3rem;
+    opacity: 0.9;
+    font-variant-numeric: tabular-nums;
 }
 
 button {
     border-radius: 8px;
-
     padding: 0.6em 1.2em;
     margin: 0.5em;
     font-size: 1.3rem;
@@ -106,12 +98,10 @@ button {
     cursor: pointer;
     color: white;
     text-shadow:
-        0 0 8px rgba(59, 130, 246, 0.5),
         0 0 16px rgba(59, 130, 246, 0.4),
         0 0 24px rgba(59, 130, 246, 0.3);
 
     transition: opacity 0.2s ease-in-out;
-    /*text-transform: uppercase;*/
 
     &:hover {
         transition: opacity 0.1s ease-in-out;
