@@ -4,6 +4,15 @@
 
 Effectlayer is a reactive frontend framework that uses the familiar JSX Syntax from React, but takes a fundamentally different approach to state management.
 
+# Quickstart
+
+```bash
+npm create effectlayer
+# or:
+# bun create effectlayer
+# pnpm create effectlayer
+```
+
 # Tour
 
 Instead of hooks, you can define all your application state in a single class. Every property you add becomes reactive state automatically.

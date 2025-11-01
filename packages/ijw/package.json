@@ -1,6 +1,6 @@
 {
     "name": "ijw",
-    "version": "0.0.5",
+    "version": "0.0.6",
     "description": "It just works! – opinionated linting & formatting",
     "keywords": [
         "eslint",
@@ -50,7 +50,7 @@
         "typescript-eslint": "^8.46.2"
     },
     "scripts": {
-        "format": "prettier --write ."
+        "prepublishOnly": "cp ../../LICENSE ./LICENSE"
     },
     "packageManager": "bun@1.2.23"
 }

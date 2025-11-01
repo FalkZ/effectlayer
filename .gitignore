@@ -25,3 +25,4 @@ dist-ssr
 *.sw?
 
 /packages/effectlayer/README.md
+/packages/*/LICENSE

@@ -1,17 +1,22 @@
 {
     "name": "effectlayer",
-    "version": "0.0.2",
+    "version": "0.0.4",
     "type": "module",
+    "license": "MIT",
     "keywords": [
         "react",
         "signals",
         "framework",
         "mvu"
     ],
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/FalkZ/effectlayer.git"
+    },
     "scripts": {
         "dev": "vite build --watch",
         "build": "ANALYZE=true vite build",
-        "prepublishOnly": "bunx vite build && cp ../../README.md ./README.md"
+        "prepublishOnly": "bunx vite build && cp ../../README.md ./README.md && cp ../../LICENSE ./LICENSE"
     },
     "exports": {
         ".": {
