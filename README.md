@@ -103,3 +103,67 @@ Effectlayer gives you a clean frontend architecture with a minimal set of concep
 React, Vue, and Svelte are excellent frameworks that power countless applications. Each has its strengths depending on the use case. However, their extensive APIs and concepts can feel overwhelming when you just want to build something simple.
 
 Effectlayer is an experiment in simplifying web development. It explores how we might build reactive interfaces with fewer abstractions while keeping the power we need. Think of it as one possible direction for making frontend development more approachable, not a replacement for existing tools, but an idea worth exploring.
+
+# Advanced Features
+
+## Immutability
+
+When you accidentally mutate state outside of a method, it won't trigger any updates:
+
+```tsx
+$monitor() {
+    this.energy = 10; // this line will not change the application state
+}
+```
+
+## Transactional Mutations
+
+All mutation methods are transactional by default.
+
+If a method throws an error, none of its state changes take effect:
+
+```tsx
+work() {
+    this.energy = this.energy - 2;
+    throw new Error("Working failed!")
+    // energy remains unchanged
+}
+```
+
+State updates happen atomically. All changes apply at once, preventing intermediate states:
+
+```tsx
+update() {
+    this.energy = 3;
+    this.energy = 4;
+    this.coffee = 0;
+    // energy jumps directly to 4, never 3
+    // both energy and coffee update together
+}
+```
+
+## `onValueInput` & `onValueChange` Listeners
+
+These listeners simplify handling input elements. Text inputs give you a string value. Checkboxes give you a boolean or `"indeterminate"`. Number inputs give you either a number or null when empty:
+
+```tsx
+<input
+    type="number"
+    onValueChange={(value: number | null) =>
+        console.log("current value:", value)
+    }
+/>
+```
+
+### Controlled values
+
+When you return a value from the listener (anything except `undefined`), the input takes that value. This lets you control what gets displayed.
+
+You can for example restrict input to alphanumeric characters and hyphens:
+
+```tsx
+<input
+    type="text"
+    onValueChange={(value: string) => value.replace(/[^A-z0-9-]/g, "-")}
+/>
+```
