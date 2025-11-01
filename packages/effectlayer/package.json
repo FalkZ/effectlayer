@@ -2,10 +2,16 @@
     "name": "effectlayer",
     "version": "0.0.2",
     "type": "module",
+    "keywords": [
+        "react",
+        "signals",
+        "framework",
+        "mvu"
+    ],
     "scripts": {
         "dev": "vite build --watch",
         "build": "ANALYZE=true vite build",
-        "prepublishOnly": "vite build && cp ../../README.md ./README.md"
+        "prepublishOnly": "bunx vite build && cp ../../README.md ./README.md"
     },
     "exports": {
         ".": {

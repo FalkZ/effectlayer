@@ -1,6 +1,6 @@
 # Effectlayer
 
-> This framework is still in early beta, bugs and changes are expected.
+> ⚠️ Effectlayer is in early beta. Expect bugs and breaking changes.
 
 Effectlayer is a reactive frontend framework that uses the familiar JSX Syntax from React, but takes a fundamentally different approach to state management.
 
