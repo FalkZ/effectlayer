@@ -8,6 +8,15 @@ const config = {
     singleQuote: false,
     htmlWhitespaceSensitivity: "ignore",
     arrowParens: "always",
+    plugins: ["prettier-plugin-tailwindcss", "prettier-plugin-svelte"],
+    overrides: [
+        {
+            files: "*.svelte",
+            options: {
+                parser: "svelte",
+            },
+        },
+    ],
 };
 
 module.exports = config;

@@ -76,7 +76,7 @@ To create a reactive instance, wrap your class with `effectlayer()`:
 const moodSwing = effectlayer(MoodSwing);
 ```
 
-Effects are initialized by calling them once.
+If you want to use an effect, you need to initialized it by calling it once.
 
 ```tsx
 moodSwing.$monitor();
@@ -106,7 +106,7 @@ Effectlayer is an experiment in simplifying web development. It explores how we 
 
 # Advanced Features
 
-## Immutability
+## Immutability is enforced
 
 When you accidentally mutate state outside of a method, it won't trigger any updates:
 
@@ -116,7 +116,7 @@ $monitor() {
 }
 ```
 
-## Transactional Mutations
+## Mutations Methods are Transactional
 
 All mutation methods are transactional by default.
 
@@ -155,7 +155,7 @@ These listeners simplify handling input elements. Text inputs give you a string 
 />
 ```
 
-### Controlled values
+### Values can be Controlled
 
 When you return a value from the listener (anything except `undefined`), the input takes that value. This lets you control what gets displayed.
 

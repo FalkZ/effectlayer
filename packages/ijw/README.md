@@ -1,6 +1,6 @@
 # It just works! – opinionated linting & formatting
 
-This package gives you type-aware linting and formatting for Javascript, Typescript, and React.
+This package gives you type-aware linting and formatting for Javascript, Typescript, React, and Svelte.
 
 In detail it includes recommended rules from:
 
@@ -9,6 +9,9 @@ In detail it includes recommended rules from:
 - eslint-plugin-react
 - eslint-plugin-react-hooks
 - eslint-plugin-jsx-a11y (opt in)
+- eslint-plugin-svelte
+- prettier-plugin-svelte
+- prettier-plugin-tailwindcss
 
 ## Installation
 
